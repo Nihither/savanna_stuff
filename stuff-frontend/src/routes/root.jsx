@@ -1,21 +1,23 @@
 import React from 'react';
+import {Box} from "@mui/material";
 import {Outlet} from "react-router-dom";
-import NavMenu from "../elements/navMenu.jsx";
-import NavHeader from "../elements/navHeader.jsx";
+import BottomMenu from "../components/bottom_menu.jsx";
+import AppHeader from "../components/app_header.jsx";
 
 
-class Root extends React.Component {
+function Root () {
 
-  render() {
-    return (
-      <>
-        <NavHeader />
-        <h3>Root page content</h3>
+  return (
+    <>
+      <AppHeader />
+
+      <Box sx={{ margin: 2, marginBottom: 11 }}>
         <Outlet />
-        <NavMenu />
-      </>
-    )
-  }
+      </Box>
+
+      <BottomMenu />
+    </>
+  )
 }
 
 export default Root;

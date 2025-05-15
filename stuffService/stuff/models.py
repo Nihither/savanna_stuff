@@ -43,9 +43,9 @@ class Lesson(models.Model):
         (5, "СБ"),
         (6, "ВС")
     )
-    teacher = models.ForeignKey(to=Teacher, on_delete=models.SET_NULL, blank=True, null=True,
+    teacher = models.ForeignKey(to=Teacher, on_delete=models.CASCADE, blank=True, null=True,
                                 related_name="lessons", verbose_name="Преподаватель")
-    student = models.ForeignKey(to=Student, on_delete=models.SET_NULL, blank=True, null=True,
+    student = models.ForeignKey(to=Student, on_delete=models.CASCADE, blank=True, null=True,
                                 related_name="lessons", verbose_name="Ученик")
     day = models.SmallIntegerField(verbose_name="День недели", choices=WEEKDAYS)
     timestamp = models.TimeField(verbose_name="Время")
