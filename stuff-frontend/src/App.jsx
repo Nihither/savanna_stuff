@@ -5,7 +5,6 @@ import Students from "./routes/students.jsx";
 import Teachers from "./routes/teachers.jsx";
 import Reminders from "./routes/reminders.jsx";
 import Reports from "./routes/reports.jsx";
-import {getTeacherDetails} from "./api/teachers_api.js";
 import TeacherProfile from "./routes/teacher_profile.jsx";
 
 
