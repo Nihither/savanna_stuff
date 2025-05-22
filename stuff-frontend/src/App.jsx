@@ -5,9 +5,8 @@ import Students from "./routes/students.jsx";
 import Teachers from "./routes/teachers.jsx";
 import Reminders from "./routes/reminders.jsx";
 import Reports from "./routes/reports.jsx";
-import Profile from "./routes/profile.jsx";
 import {getTeacherDetails} from "./api/teachers_api.js";
-import {getStudentDetail} from "./api/students_api.js";
+import TeacherProfile from "./routes/teacher_profile.jsx";
 
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
     {
       path: "/",
       element: <Root />,
-      errorElement: <Error404 />,
+      // errorElement: <Error404 />,
       children: [
         {
           path: "students",
@@ -35,11 +34,10 @@ function App() {
         },
         {
           path: "teachers/:id",
-          element: <Profile getPerson={getTeacherDetails} />
+          element: <TeacherProfile />
         },
         {
           path: "students/:id",
-          element: <Profile getPerson={getStudentDetail} />
         }
       ]
     }

@@ -35,7 +35,7 @@ function Reports() {
           </Alert>
         ) :
         (isLoaded ?
-          (reports.length > 0 ?
+          (Array.isArray(reports) && reports.length > 0 ?
             (
               <ReportsList reports={reports}/>
             ) : (

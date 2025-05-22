@@ -31,11 +31,11 @@ function Reminders() {
       { error ?
         (
           <Alert severity="error">
-            Network error. Please try later
+            {error}
           </Alert>
         ) :
         ( isLoaded ?
-          (reminders.length > 0 ?
+          ( Array.isArray(reminders) && reminders.length > 0 ?
             (
               <RemindersList reminders={reminders} />
             ) : (

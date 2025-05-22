@@ -28,16 +28,21 @@ export function getFormatedTime(time) {
   return time.substring(0, time.lastIndexOf(':'))
 }
 
-export function formatDate(day, time) {
+export function formatDateTime(day, time) {
   const formated_day = getFormatedDay(day)
   const formated_time = getFormatedTime(time)
   return `${formated_day} ${formated_time}`;
 }
 
+export function formatDateFromString(date) {
+  const date_ = new Date(date).toLocaleDateString();
+  return date_.substring(0, date_.lastIndexOf('.'));
+}
+
 export function getFormatedReminderMessage(message, time) {
   const formated_time = getFormatedTime(time)
   const tomorrow_date = new Date(Date.now() + 24 * 60 * 60 * 1000)
-  const formated_tomorrow = `${tomorrow_date.toLocaleDateString()}`
+  const formated_tomorrow = formatDateFromString(tomorrow_date)
   message = message.replace("dd.mm", formated_tomorrow)
   message = message.replace("hh:MM", formated_time)
   return message

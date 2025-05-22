@@ -35,7 +35,7 @@ function Teachers() {
           </Alert>
         ) :
         (isLoaded ?
-          (teachers.length > 0 ?
+          (Array.isArray(teachers) && teachers.length > 0 ?
             (
               <StuffList stuff={teachers}/>
             ) : (

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Avatar, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader} from "@mui/material";
-import {formatDate, getFormatedReminderMessage, getFullName} from "../utils/formating.js";
+import {formatDateTime, getFormatedReminderMessage, getFullName} from "../utils/formating.js";
 
 
 function RemindersList(props) {
@@ -25,7 +25,7 @@ function RemindersList(props) {
                   <Avatar/>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={getFullName(lesson.student)} secondary={formatDate(lesson.day, lesson.timestamp)}
+                  primary={getFullName(lesson.student)} secondary={formatDateTime(lesson.day, lesson.timestamp)}
                 />
               </ListItemButton>
             ))}
