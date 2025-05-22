@@ -3,7 +3,7 @@ import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
 import {AccountCircle} from "@mui/icons-material";
 
 
-function AppHeader() {
+export default function AppHeader() {
 
   return (
     <AppBar sx={{ bgcolor: 'success.light' }} position="static">
@@ -18,5 +18,3 @@ function AppHeader() {
     </AppBar>
   )
 }
-
-export default AppHeader;

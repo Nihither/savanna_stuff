@@ -4,7 +4,7 @@ import RemindersList from "../components/reminders_list.jsx";
 import {getRemindersList} from "../api/reminders_api.js";
 
 
-function Reminders() {
+export default function Reminders() {
 
   const [reminders, setReminders] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -48,5 +48,3 @@ function Reminders() {
     </div>
   )
 }
-
-export default Reminders;

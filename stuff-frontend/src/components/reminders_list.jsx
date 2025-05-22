@@ -3,13 +3,13 @@ import {Avatar, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheade
 import {formatDateTime, getFormatedReminderMessage, getFullName} from "../utils/formating.js";
 
 
-function RemindersList(props) {
+function getMessageLink(lesson) {
+  const message = getFormatedReminderMessage(lesson.student.messages.reminder_message, lesson.timestamp)
+  const phone_number = lesson.student.has_parent ? lesson.student.parent_phone : lesson.student.phone
+  return `https://wa.me/${phone_number}?text=${message}`
+}
 
-  function getMessageLink(lesson) {
-    const message = getFormatedReminderMessage(lesson.student.messages.reminder_message, lesson.timestamp)
-    const phone_number = lesson.student.has_parent ? lesson.student.parent_phone : lesson.student.phone
-    return `https://wa.me/${phone_number}?text=${message}`
-  }
+export default function RemindersList(props) {
 
   const reminders = props.reminders;
 
@@ -36,5 +36,4 @@ function RemindersList(props) {
   )
 }
 
-export default RemindersList;
-
+// TODO 2 buttons to send reminder to wa or tg

@@ -4,7 +4,7 @@ import {getFullName} from "../utils/formating.js";
 import {Link, useLocation} from "react-router-dom";
 
 
-function StuffList(props) {
+export default function StuffList(props) {
 
   const stuff = props.stuff;
   const location = useLocation();
@@ -22,5 +22,3 @@ function StuffList(props) {
     </List>
   )
 }
-
-export default StuffList;

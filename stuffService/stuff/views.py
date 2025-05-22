@@ -85,7 +85,9 @@ def teacher(request, teacher_id):
     elif request.method == "PUT":
         return Response(status=status.HTTP_200_OK)
     elif request.method == "DELETE":
-        return Response(status=status.HTTP_200_OK)
+        teacher_obj = get_object_or_404(Teacher, pk=teacher_id)
+        teacher_obj.delete()
+        return Response("Deleted", status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -99,7 +101,9 @@ def student(request, student_id):
     elif request.method == "PUT":
         return Response(status=status.HTTP_200_OK)
     elif request.method == "DELETE":
-        return Response(status=status.HTTP_200_OK)
+        student_obj = get_object_or_404(Student, pk=student_id)
+        student_obj.delete()
+        return Response("Deleted", status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 

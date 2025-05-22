@@ -5,7 +5,7 @@ import BottomMenu from "../components/bottom_menu.jsx";
 import AppHeader from "../components/app_header.jsx";
 
 
-function Root () {
+export default function Root () {
 
   return (
     <>
@@ -19,5 +19,3 @@ function Root () {
     </>
   )
 }
-
-export default Root;

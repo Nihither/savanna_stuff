@@ -4,10 +4,7 @@ import {
   Alert,
   Box, Button,
   Chip, Divider, Drawer,
-  FormControl,
   IconButton,
-  Input,
-  InputLabel,
   LinearProgress,
   ListItemIcon,
   ListItemText,
@@ -22,7 +19,7 @@ import {Cake, Delete, Edit, MoreVert, Phone, Telegram, WhatsApp} from "@mui/icon
 import TeachersLessons from "../components/teachers_lessons.jsx";
 
 
-function TeacherProfile() {
+export default function TeacherProfile() {
 
   const {id} = useParams();
   const [person, setPerson] = useState(null);
@@ -223,5 +220,3 @@ function TeacherProfile() {
     </React.Fragment>
   </div>)
 }
-
-export default TeacherProfile;

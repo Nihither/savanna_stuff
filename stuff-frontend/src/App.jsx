@@ -8,7 +8,7 @@ import Reports from "./routes/reports.jsx";
 import TeacherProfile from "./routes/teacher_profile.jsx";
 
 
-function App() {
+export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
@@ -44,5 +44,3 @@ function App() {
 
   return <RouterProvider router={router} />
 }
-
-export default App;

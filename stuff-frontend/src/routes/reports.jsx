@@ -4,7 +4,7 @@ import ReportsList from "../components/reports_list.jsx";
 import {getReportsList} from "../api/reports_api.js";
 
 
-function Reports() {
+export default function Reports() {
 
   const [reports, setReports] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false)
@@ -48,5 +48,3 @@ function Reports() {
     </div>
   )
 }
-
-export default Reports;

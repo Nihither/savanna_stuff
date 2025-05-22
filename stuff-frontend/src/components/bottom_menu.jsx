@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {BabyChangingStation, Notifications, School, TaskAlt} from "@mui/icons-material";
 
 
-function BottomMenu() {
+export default function BottomMenu() {
 
   return (
     <Paper elevation={15} sx={{position: 'fixed', bottom: 0, left: 0, right: 0, paddingBottom: 2, zIndex: 100}}>
@@ -21,5 +21,3 @@ function BottomMenu() {
     </Paper>
   )
 }
-
-export default BottomMenu;

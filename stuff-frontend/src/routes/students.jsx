@@ -4,7 +4,7 @@ import StuffList from "../components/stuff_list.jsx";
 import {getStudentsList} from "../api/students_api.js";
 
 
-function Students() {
+export default function Students() {
 
   const [students, setStudents] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -48,5 +48,3 @@ function Students() {
     </div>
   )
 }
-
-export default Students;
