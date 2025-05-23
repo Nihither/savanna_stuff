@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {redirect, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {
   Alert,
   Box, Button,
@@ -9,11 +9,11 @@ import {
   ListItemIcon,
   ListItemText,
   Menu,
-  MenuItem,
+  MenuItem, Snackbar,
   Stack, TextField,
   Typography
 } from "@mui/material";
-import {deleteTeacher, getTeacherDetails} from "../api/teachers_api.js";
+import {deleteTeacher, getTeacherDetails, updateTeacher} from "../api/teachers_api.js";
 import {formatDateFromString, getFullName} from "../utils/formating.js";
 import {Cake, Delete, Edit, MoreVert, Phone, Telegram, WhatsApp} from "@mui/icons-material";
 import TeachersLessons from "../components/teachers_lessons.jsx";
@@ -21,14 +21,25 @@ import TeachersLessons from "../components/teachers_lessons.jsx";
 
 export default function TeacherProfile() {
 
+  const navigate = useNavigate();
   const {id} = useParams();
   const [person, setPerson] = useState(null);
-  const [error, setError] = useState(null);
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthday, setBirthday] = useState('')
+  const [dataLoadingError, setDataLoadingError] = useState(null);
   const [edit, setEdit] = useState(false);
   const [deleting, setDeleting] = useState(false)
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [alertOpen, setAlertOpen] = useState(false)
+  const [alertText, setAlertText] = useState(null)
+  const [alertSeverity, setAlertSeverity] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
+  const handleAlertClose = () => {
+    setAlertOpen(false)
+  }
   const toggleDrawer = (newOpen) => {
     setModalOpen(newOpen);
   };
@@ -54,15 +65,60 @@ export default function TeacherProfile() {
     toggleDrawer(true);
   };
   const handleTeacherDelete = () => {
-    console.log("deleted")
+    deleteTeacher(id)
+      .then(() => {
+        setAlertText("Successfully deleted")
+        setAlertSeverity("success")
+        setAlertOpen(true)
+        setTimeout(() => {
+          navigate("/teachers")
+        }, 2000)
+      })
+      .catch((error) => {
+        setAlertText(error.toString())
+        setAlertSeverity("error")
+        setAlertOpen(true)
+      })
     handleDrawerClose()
-    // deleteTeacher(id)
-    //   .then(() => {
-    //     redirect("/teachers")
-    //   })
   };
-  const handleTeacherEdit = () => {
-    console.log("updated")
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value)
+  };
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value)
+  };
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value)
+  };
+  const handleBirthdayChange = (e) => {
+    setBirthday(e.target.value)
+  }
+  const handleTeacherEdit = (e) => {
+    e.preventDefault()
+    const formData = {
+      first_name: first_name,
+      last_name: last_name,
+      phone: phone,
+      birthday: birthday,
+    }
+    updateTeacher(id, formData)
+      .then(() => {
+        setPerson({
+          ...person,
+          "first_name": first_name,
+          "last_name": last_name,
+          "phone": phone,
+          "birthday": birthday
+        })
+        setAlertText("Successfully updated")
+        setAlertSeverity("success")
+        setAlertOpen(true)
+      })
+      .catch((error) => {
+        setAlertText(error.toString())
+        setAlertSeverity("error")
+        setAlertOpen(true)
+      })
     handleDrawerClose()
   }
 
@@ -70,17 +126,21 @@ export default function TeacherProfile() {
     getTeacherDetails(id)
       .then(teacher => {
         setPerson(teacher);
+        setFirstName(teacher.first_name);
+        setLastName(teacher.last_name);
+        setPhone(teacher.phone);
+        setBirthday(teacher.birthday);
       })
       .catch(error => {
-        setError(error)
+        setDataLoadingError(error.toString())
       })
   }, [getTeacherDetails, id]);
 
   return (<div>
     {/*Person details section*/}
-    {error ? (
+    {dataLoadingError ? (
       <Alert severity="error">
-        Network error. Please try later
+        {dataLoadingError}
       </Alert>
     ) : (
       person ? (
@@ -161,6 +221,18 @@ export default function TeacherProfile() {
       <TeachersLessons/>
     </Box>
 
+    {/*Alert section*/}
+    <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose} sx={{marginBottom: 10}}>
+      <Alert
+        onClose={handleAlertClose}
+        severity={alertSeverity}
+        variant="filled"
+        sx={{ width: '100%' }}
+      >
+        {alertText}
+      </Alert>
+    </Snackbar>
+
     {/* Modal */}
     <React.Fragment>
       <Drawer
@@ -170,37 +242,42 @@ export default function TeacherProfile() {
       >
         {edit ? (
           <Box component={"form"}
+               onSubmit={handleTeacherEdit}
                sx={{ '& .MuiTextField-root': { my: 1}, marginY: 4, marginX: 3}}
                autoComplete="off">
             <TextField
               fullWidth
               required
-              id="first_name"
+              name="first_name"
               label="Имя"
-              value={person.first_name}
+              onChange={handleFirstNameChange}
+              value={first_name ? first_name : ''}
             />
             <TextField
               fullWidth
               required
-              id="last_name"
+              name="last_name"
               label="Фамилия"
-              value={person.last_name}
+              onChange={handleLastNameChange}
+              value={last_name ? last_name : ''}
             />
             <TextField
               fullWidth
-              id="phone"
+              name="phone"
               label="Телефон"
-              value={person.phone}
+              onChange={handlePhoneChange}
+              value={phone ? phone : ''}
             />
             <TextField
               fullWidth
-              id="birthday"
+              name="birthday"
               label="День рождения"
-              value={person.birthday}
+              onChange={handleBirthdayChange}
+              value={birthday ? birthday : ''}
             />
             <Stack direction="row" alignItems="center" justifyContent="space-between">
               <Button variant="outlined" color="info" onClick={handleDrawerClose} >Отмена</Button>
-              <Button variant="contained" color="primary" onClick={handleTeacherEdit} >Сохранить</Button>
+              <Button type="submit" variant="contained" color="primary" >Сохранить</Button>
             </Stack>
           </Box>
         ) : (
@@ -213,7 +290,7 @@ export default function TeacherProfile() {
               </Stack>
             </Box>
           ) : (
-            () => toggleDrawer(false)
+            <></>
           )
         )}
       </Drawer>

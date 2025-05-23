@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime, timedelta
 
 from django.db.models import Prefetch, Count, Q
@@ -9,6 +10,8 @@ from rest_framework import status
 from .serializers import *
 from stuff.models import Lesson
 
+
+logger = logging.getLogger('django')
 
 @api_view(["GET"])
 def reminders(request):
@@ -83,7 +86,13 @@ def teacher(request, teacher_id):
         serializer = TeacherModelSerializer(teacher_obj, context={'request': request}, many=False)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
     elif request.method == "PUT":
-        return Response(status=status.HTTP_200_OK)
+        teacher_obj = get_object_or_404(Teacher, pk=teacher_id)
+        serializer = TeacherModelSerializer(instance=teacher_obj, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == "DELETE":
         teacher_obj = get_object_or_404(Teacher, pk=teacher_id)
         teacher_obj.delete()
