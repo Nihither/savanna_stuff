@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Box, Button, Stack, TextField} from "@mui/material";
 
 
-export default function TeacherForm({handleTeacherSave, handleDrawerClose, teacher}) {
+export default function StudentForm({handleStudentSave, handleDrawerClose, student}) {
 
   const [first_name, setFirstName] = useState(null);
   const [last_name, setLastName] = useState(null);
@@ -28,18 +28,18 @@ export default function TeacherForm({handleTeacherSave, handleDrawerClose, teach
       phone: phone,
       birthday: birthday
     }
-    handleTeacherSave(data)
+    handleStudentSave(data)
     handleDrawerClose()
   }
 
   useEffect(() => {
-    if (teacher) {
-      setFirstName(teacher.first_name)
-      setLastName(teacher.last_name)
-      setPhone(teacher.phone)
-      setBirthday(teacher.birthday)
+    if (student) {
+      setFirstName(student.first_name)
+      setLastName(student.last_name)
+      setPhone(student.phone)
+      setBirthday(student.birthday)
     }
-  }, [teacher]);
+  }, [student]);
 
   return (
     <Box component={"form"}

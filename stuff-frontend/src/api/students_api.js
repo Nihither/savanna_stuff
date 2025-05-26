@@ -23,7 +23,7 @@ export async function getStudentDetail(id) {
   return handleDataResponse(response)
 }
 
-export async function createTeacher(formData) {
+export async function createStudent(formData) {
   let url = 'http://192.168.0.47:8080/api/students'
   let response  = await fetch(url, {
     method: "POST",
@@ -35,7 +35,7 @@ export async function createTeacher(formData) {
   return handleResponse(response)
 }
 
-export async function updateTeacher(id, formData) {
+export async function updateStudent(id, formData) {
   let url = `http://192.168.0.47:8080/api/students/${id}`
   let response = await fetch(url, {
     method: "PUT",
@@ -47,7 +47,7 @@ export async function updateTeacher(id, formData) {
   return handleResponse(response)
 }
 
-export async function deleteTeacher(id) {
+export async function deleteStudent(id) {
   let url = `http://192.168.0.47:8080/api/students/${id}`
   let response = await fetch(url, {
     method: 'DELETE'

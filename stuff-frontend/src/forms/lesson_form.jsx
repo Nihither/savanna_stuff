@@ -8,10 +8,10 @@ import {useParams} from "react-router-dom";
 export default function LessonForm({lesson, teachers, students, handleDrawerClose, handleLessonSave}) {
 
   const {id} = useParams()
-  const [teacher, setTeacher] = useState('')
-  const [student, setStudent] = useState('')
-  const [day, setDay] = useState('')
-  const [timestamp, setTimestamp] = useState('')
+  const [teacher, setTeacher] = useState(null)
+  const [student, setStudent] = useState(null)
+  const [day, setDay] = useState(null)
+  const [timestamp, setTimestamp] = useState(null)
   const handleTeacherChange = (e) => {
     setTeacher(e.target.value)
   };
@@ -52,10 +52,10 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
          autoComplete="off"
     >
       <FormControl fullWidth sx={{my: 1}}>
-        <InputLabel id="teacher-label">Преподаватель</InputLabel>
+        <InputLabel id="teacher-select-label">Преподаватель</InputLabel>
         <Select
           required
-          labelId="teacher-label"
+          labelId="teacher-select-label"
           id="teacher-select"
           value={teacher}
           label="Преподаватель"
@@ -71,10 +71,10 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{my: 1}}>
-        <InputLabel id="student-label">Ученик</InputLabel>
+        <InputLabel id="student-select-label">Ученик</InputLabel>
         <Select
           required
-          labelId="student-label"
+          labelId="student-select-label"
           id="student-select"
           value={student}
           label="Ученик"
@@ -90,10 +90,10 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{my: 1}}>
-        <InputLabel id="day-label">День недели</InputLabel>
+        <InputLabel id="day-select-label">День недели</InputLabel>
         <Select
           required
-          labelId="day-label"
+          labelId="day-select-label"
           id="day-select"
           value={day}
           label="День недели"

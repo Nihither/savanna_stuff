@@ -6,6 +6,7 @@ import Teachers from "./routes/teachers.jsx";
 import Reminders from "./routes/reminders.jsx";
 import Reports from "./routes/reports.jsx";
 import TeacherProfile from "./routes/teacher_profile.jsx";
+import StudentProfile from "./routes/student_profile.jsx";
 
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
         },
         {
           path: "students/:id",
+          element: <StudentProfile />
         }
       ]
     }

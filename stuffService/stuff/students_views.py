@@ -16,7 +16,12 @@ def students(request):
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
     elif request.method == "POST":
-        return Response(status=status.HTTP_201_CREATED)
+        serializer = StudentModelSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 

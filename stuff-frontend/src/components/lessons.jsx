@@ -6,24 +6,23 @@ import {
   LinearProgress,
   List, ListItem,
   ListItemAvatar,
-  ListItemButton, ListItemIcon,
+  ListItemIcon,
   ListItemText, Menu, MenuItem,
   Stack,
   Typography
 } from "@mui/material";
-import {getLessonsByTeacher, getTeachersList} from "../api/teachers_api.js";
+import {getTeachersList} from "../api/teachers_api.js";
 import {formatDateTime, getFullName} from "../utils/formating.js";
-import {Delete, Edit, MoreVert} from "@mui/icons-material";
+import {AddCircleOutline, Delete, Edit, MoreVert, PersonAdd} from "@mui/icons-material";
 import {useParams} from "react-router-dom";
 import CustomAlert from "../elements/custom_alert.jsx";
-import TeacherForm from "../forms/teacher_form.jsx";
 import DeleteConfirm from "../elements/delete_confirm.jsx";
-import {deleteLesson, updateLesson} from "../api/lessons_api.js";
+import {createLesson, deleteLesson, updateLesson} from "../api/lessons_api.js";
 import LessonForm from "../forms/lesson_form.jsx";
 import {getStudentsList} from "../api/students_api.js";
 
 
-export default function TeachersLessons() {
+export default function Lessons({fetchLessons, byPerson}) {
 
   const {id} = useParams();
   const [lessons, setLessons] = useState([]);
@@ -34,9 +33,12 @@ export default function TeachersLessons() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [dataLoadingError, setDataLoadingError] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [adding, setAdding] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuOpen = Boolean(anchorEl);
+  const [anchorAddMenu, setAnchorAddMenu] = useState(null);
+  const addLessonMenuOpen = Boolean(anchorAddMenu);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertText, setAlertText] = useState(null);
   const [alertSeverity, setAlertSeverity] = useState(null);
@@ -49,6 +51,7 @@ export default function TeachersLessons() {
   };
   const handleDrawerClose = () => {
     setEdit(false);
+    setAdding(false);
     setDeleting(false);
     toggleDrawer(false);
   };
@@ -60,6 +63,13 @@ export default function TeachersLessons() {
   const handleOptionMenuClose = () => {
     setAnchorEl(null);
   };
+  const handleAddLessonMenuClick = (event) => {
+    setAnchorAddMenu(event.currentTarget);
+    setAdding(true);
+  };
+  const handleAddLessonMenuClose = () => {
+    setAnchorAddMenu(null);
+  };
   const handleEditLessonButton = () => {
     setEdit(true);
     handleOptionMenuClose()
@@ -70,6 +80,26 @@ export default function TeachersLessons() {
     handleOptionMenuClose();
     toggleDrawer(true);
   };
+  const handleAddLessonButton = () => {
+    setEdit(true);
+    handleAddLessonMenuClose()
+    toggleDrawer(true)
+  };
+  const handleLessonCreate = (data) => {
+    createLesson(data)
+      .then(() => {
+        setAlertText("Successfully created")
+        setAlertSeverity("success")
+        setAlertOpen(true)
+        fetchData()
+      })
+      .catch((error) => {
+        setAlertText(error.toString())
+        setAlertSeverity("error")
+        setAlertOpen(true)
+      })
+    handleDrawerClose()
+  }
   const handleLessonEdit = (data) => {
     updateLesson(lessonId, data)
       .then(() => {
@@ -125,7 +155,7 @@ export default function TeachersLessons() {
   }
 
   const fetchData = () => {
-    getLessonsByTeacher(id)
+    fetchLessons(id)
       .then(res => {
         setLessons(res);
       })
@@ -145,6 +175,38 @@ export default function TeachersLessons() {
 
   return (
     <Box component="div">
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{paddingX: 1}}
+        alignItems="end"
+        justifyContent="space-between"
+      >
+        <Typography variant="h6" sx={{paddingX: 1, paddingTop: 2}}>Занятия</Typography>
+        <IconButton
+          id="add-lesson-button"
+          aria-controls={anchorAddMenu ? 'add-lesson-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={anchorAddMenu ? 'true' : undefined}
+          onClick={handleAddLessonMenuClick}
+        >
+          <AddCircleOutline color="info" fontSize='small'/>
+        </IconButton>
+        <Menu
+          id="add-lesson-menu"
+          anchorEl={anchorAddMenu}
+          open={addLessonMenuOpen}
+          onClose={handleAddLessonMenuClose}
+        >
+          <MenuItem onClick={handleAddLessonButton}>
+            <ListItemIcon>
+              <PersonAdd fontSize="small"/>
+            </ListItemIcon>
+            <ListItemText primary="Добавить занятие"/>
+          </MenuItem>
+        </Menu>
+      </Stack>
+
       {dataLoadingError ? (
         <Alert severity="error">
           Network error. Please try later
@@ -160,7 +222,8 @@ export default function TeachersLessons() {
                       <Avatar />
                     </ListItemAvatar>
                     <ListItemText
-                      primary={getFullName(lesson.student)}
+                      // primary={getFullName(lesson.student)}
+                      primary={ byPerson === 'teacher' ? (getFullName(lesson.student)) : (getFullName(lesson.teacher))}
                       secondary={`${formatDateTime(lesson.day, lesson.timestamp)}`}
                     />
                   </ListItem>
@@ -221,11 +284,11 @@ export default function TeachersLessons() {
         >
           {edit ? (
             <LessonForm
-              lesson={lesson}
+              lesson={!adding ? lesson : null}
               teachers={teachers}
               students={students}
               handleDrawerClose={handleDrawerClose}
-              handleLessonSave={handleLessonEdit}
+              handleLessonSave={adding ? handleLessonCreate : handleLessonEdit}
             />
           ) : (
             deleting ? (
