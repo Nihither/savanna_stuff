@@ -1,4 +1,4 @@
-import {handleResponse} from "./response_handler.js";
+import {handleDataResponse, handleResponse} from "./response_handlers.js";
 
 
 export async function getTeachersList() {
@@ -9,7 +9,7 @@ export async function getTeachersList() {
       'Content-Type': 'application/json'
     }
   })
-  return handleResponse(response)
+  return handleDataResponse(response)
 }
 
 export async function getTeacherDetails(id) {
@@ -19,6 +19,18 @@ export async function getTeacherDetails(id) {
     headers: {
       'Content-Type': 'application/json'
     }
+  })
+  return handleDataResponse(response)
+}
+
+export async function createTeacher(formData) {
+  let url = 'http://192.168.0.47:8080/api/teachers'
+  let response  = await fetch(url, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
   })
   return handleResponse(response)
 }
@@ -32,11 +44,7 @@ export async function updateTeacher(id, formData) {
     },
     body: JSON.stringify(formData)
   })
-  if (response.ok) {
-    return response;
-  } else {
-    throw new Error(response.statusText)
-  }
+  return handleResponse(response)
 }
 
 export async function deleteTeacher(id) {
@@ -44,12 +52,7 @@ export async function deleteTeacher(id) {
   let response = await fetch(url, {
     method: 'DELETE'
   })
-
-  if (response.ok) {
-    return response;
-  } else {
-    throw new Error(response.statusText)
-  }
+  return handleResponse(response)
 }
 
 export async function getLessonsByTeacher(id){
@@ -60,5 +63,5 @@ export async function getLessonsByTeacher(id){
       'Content-Type': 'application/json'
     }
   })
-  return handleResponse(response)
+  return handleDataResponse(response)
 }

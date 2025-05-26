@@ -1,4 +1,4 @@
-import {handleResponse} from "./response_handler.js";
+import {handleDataResponse} from "./response_handlers.js";
 
 
 export async function getStudentsList() {
@@ -9,7 +9,7 @@ export async function getStudentsList() {
       'Content-Type': 'application/json'
     }
   })
-  return handleResponse(response)
+  return handleDataResponse(response)
 }
 
 export async function getStudentDetail(id) {
@@ -20,7 +20,7 @@ export async function getStudentDetail(id) {
       'Content-Type': 'application/json'
     }
   })
-  return handleResponse(response)
+  return handleDataResponse(response)
 }
 
 export async function getLessonsByStudent(id) {
@@ -31,5 +31,5 @@ export async function getLessonsByStudent(id) {
       'Content-Type': 'application/json'
     }
   })
-  return handleResponse(response)
+  return handleDataResponse(response)
 }

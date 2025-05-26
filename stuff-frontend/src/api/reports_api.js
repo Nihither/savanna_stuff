@@ -1,4 +1,4 @@
-import {handleResponse} from "./response_handler.js";
+import {handleDataResponse} from "./response_handlers.js";
 
 
 export async function getReportsList() {
@@ -9,5 +9,5 @@ export async function getReportsList() {
       'Content-Type': 'application/json'
     }
   })
-  return handleResponse(response)
+  return handleDataResponse(response)
 }

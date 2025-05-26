@@ -8,7 +8,7 @@ export default function Reports() {
 
   const [reports, setReports] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     getReportsList()
@@ -23,15 +23,13 @@ export default function Reports() {
   }, []);
 
   return (
-    <div>
-      <Typography variant="h5" component="div" padding={2}>
-        Отчеты
-      </Typography>
+    <Box component={"div"}>
+      <Typography variant="h5" sx={{marginX: 1, paddingY: 2}}>Отчеты</Typography>
 
       {error ?
         (
           <Alert severity="error">
-            Network error. Please try later
+            {error}
           </Alert>
         ) :
         (isLoaded ?
@@ -45,6 +43,6 @@ export default function Reports() {
               <LinearProgress/>
             </Box>
           ))}
-    </div>
+    </Box>
   )
 }

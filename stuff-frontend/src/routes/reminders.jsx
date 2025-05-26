@@ -8,7 +8,7 @@ export default function Reminders() {
 
   const [reminders, setReminders] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState(null)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     getRemindersList()
@@ -23,10 +23,8 @@ export default function Reminders() {
   }, []);
 
   return (
-    <div>
-      <Typography variant="h5" component="div" padding={2}>
-        Напоминания
-      </Typography>
+    <Box component={"div"}>
+      <Typography variant="h5" sx={{marginX: 1, paddingY: 2}}>Напоминания</Typography>
 
       { error ?
         (
@@ -45,6 +43,6 @@ export default function Reminders() {
                 <LinearProgress />
               </Box>
             ))}
-    </div>
+    </Box>
   )
 }

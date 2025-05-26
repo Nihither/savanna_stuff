@@ -21,6 +21,12 @@ class StudentModelSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class LessonModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = "__all__"
+
+
 class StudentWithMessageSerializer(serializers.ModelSerializer):
     messages = MessageModelSerializer()
 
