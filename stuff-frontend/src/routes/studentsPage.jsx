@@ -10,16 +10,16 @@ import {
   MenuItem, Stack,
   Typography
 } from "@mui/material";
-import StuffList from "../components/stuff_list.jsx";
-import {createTeacher, getTeachersList} from "../api/teachers_api.js";
+import StuffList from "../components/stuffList.jsx";
 import {MoreVert, PersonAdd} from "@mui/icons-material";
-import CustomAlert from "../elements/custom_alert.jsx";
-import TeacherForm from "../forms/teacher_form.jsx";
+import CustomAlert from "../elements/customAlert.jsx";
+import {createStudent, getStudentsList} from "../api/studentsApi.js";
+import StudentForm from "../forms/studentForm.jsx";
 
 
-export default function Teachers() {
+export default function StudentsPage() {
 
-  const [teachers, setTeachers] = useState([]);
+  const [students, setStudents] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null)
   const [edit, setEdit] = useState(false)
@@ -50,8 +50,8 @@ export default function Teachers() {
     handleOptionMenuClose()
     toggleDrawer(true)
   };
-  const handleTeacherSave = (data) => {
-    createTeacher(data)
+  const handleStudentSave = (data) => {
+    createStudent(data)
       .then(() => {
         setAlertText("Successfully created")
         setAlertSeverity("success")
@@ -67,9 +67,9 @@ export default function Teachers() {
   }
 
   const fetchData = () => {
-    getTeachersList()
-      .then(teachers => {
-        setTeachers(teachers);
+    getStudentsList()
+      .then(students => {
+        setStudents(students);
         setIsLoaded(true);
       })
       .catch(error => {
@@ -85,7 +85,7 @@ export default function Teachers() {
   return (
     <Box component={"div"}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="h5" sx={{marginX: 1, paddingY: 2}}>Преподаватели</Typography>
+        <Typography variant="h5" sx={{marginX: 1, paddingY: 2}}>Ученики</Typography>
         <IconButton
           id="person-option-button"
           aria-controls={menuOpen ? 'person-option-menu' : undefined}
@@ -105,7 +105,7 @@ export default function Teachers() {
             <ListItemIcon>
               <PersonAdd fontSize="small"/>
             </ListItemIcon>
-            <ListItemText primary="Добавить преподавателя"/>
+            <ListItemText primary="Добавить ученика"/>
           </MenuItem>
         </Menu>
       </Stack>
@@ -117,9 +117,9 @@ export default function Teachers() {
           </Alert>
         ) :
         (isLoaded ?
-          (Array.isArray(teachers) && teachers.length > 0 ?
+          (Array.isArray(students) && students.length > 0 ?
             (
-              <StuffList stuff={teachers}/>
+              <StuffList stuff={students}/>
             ) : (
               <Typography variant="body1">No Content</Typography>
             )) : (
@@ -144,9 +144,9 @@ export default function Teachers() {
           onClose={handleDrawerClose}
         >
           {edit ? (
-            <TeacherForm
+            <StudentForm
               handleDrawerClose={handleDrawerClose}
-              handleTeacherSave={handleTeacherSave}
+              handleStudentSave={handleStudentSave}
             />
           ) : (
             <></>

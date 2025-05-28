@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
-import {Q} from "../utils/static_values.js";
+import {WEEKDAYS} from "../common/staticValues.js";
 import {getFullName} from "../utils/formating.js";
 import {useParams} from "react-router-dom";
 
@@ -99,7 +99,7 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
           label="День недели"
           onChange={handleDayChange}
         >
-          {Q.weekdays.map(weekday => (
+          {WEEKDAYS.map(weekday => (
             <MenuItem value={weekday.id}>{weekday.name}</MenuItem>
           ))}
         </Select>

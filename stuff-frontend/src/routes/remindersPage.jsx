@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, Box, LinearProgress, Typography} from "@mui/material";
-import RemindersList from "../components/reminders_list.jsx";
-import {getRemindersList} from "../api/reminders_api.js";
+import RemindersList from "../components/remindersList.jsx";
+import {getRemindersList} from "../api/remindersApi.js";
 
 
-export default function Reminders() {
+export default function RemindersPage() {
 
   const [reminders, setReminders] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);

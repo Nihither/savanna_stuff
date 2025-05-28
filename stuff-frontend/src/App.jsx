@@ -1,46 +1,56 @@
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import Root from "./routes/root.jsx";
+import {createBrowserRouter,  RouterProvider} from "react-router-dom";
+import RootPage, {rootLoader} from "./routes/rootPage.jsx";
 import Error404 from "./routes/Error404.jsx";
-import Students from "./routes/students.jsx";
-import Teachers from "./routes/teachers.jsx";
-import Reminders from "./routes/reminders.jsx";
-import Reports from "./routes/reports.jsx";
-import TeacherProfile from "./routes/teacher_profile.jsx";
-import StudentProfile from "./routes/student_profile.jsx";
+import StudentsPage from "./routes/studentsPage.jsx";
+import TeachersPage from "./routes/teachersPage.jsx";
+import RemindersPage from "./routes/remindersPage.jsx";
+import ReportsPage from "./routes/reportsPage.jsx";
+import TeacherProfilePage from "./routes/teacherProfilePage.jsx";
+import StudentProfilePage from "./routes/studentProfilePage.jsx";
+import LoginPage from "./routes/loginPage.jsx";
 
 
 export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Root />,
-      // errorElement: <Error404 />,
+      loader: rootLoader,
+      element: <RootPage />,
+      errorElement:
+        <RootPage>
+          <Error404 />
+        </RootPage>,
       children: [
         {
           path: "students",
-          element: <Students />
+          element: <StudentsPage />
         },
         {
           path: "teachers",
-          element: <Teachers />
+          element: <TeachersPage />
         },
         {
+          index: true,
           path: "reminders",
-          element: <Reminders />
+          element: <RemindersPage />
         },
         {
           path: "reports",
-          element: <Reports />
+          element: <ReportsPage />
         },
         {
           path: "teachers/:id",
-          element: <TeacherProfile />
+          element: <TeacherProfilePage />
         },
         {
           path: "students/:id",
-          element: <StudentProfile />
+          element: <StudentProfilePage />
         }
       ]
+    },
+    {
+      path: "login",
+      element: <LoginPage />
     }
   ])
 

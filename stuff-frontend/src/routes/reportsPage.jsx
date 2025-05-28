@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, Box, LinearProgress, Typography} from "@mui/material";
-import ReportsList from "../components/reports_list.jsx";
-import {getReportsList} from "../api/reports_api.js";
+import ReportsList from "../components/reportsList.jsx";
+import {getReportsList} from "../api/reportsApi.js";
 
 
-export default function Reports() {
+export default function ReportsPage() {
 
   const [reports, setReports] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false)

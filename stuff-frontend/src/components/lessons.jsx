@@ -11,15 +11,15 @@ import {
   Stack,
   Typography
 } from "@mui/material";
-import {getTeachersList} from "../api/teachers_api.js";
+import {getTeachersList} from "../api/teachersApi.js";
 import {formatDateTime, getFullName} from "../utils/formating.js";
 import {AddCircleOutline, Delete, Edit, MoreVert, PersonAdd} from "@mui/icons-material";
 import {useParams} from "react-router-dom";
-import CustomAlert from "../elements/custom_alert.jsx";
-import DeleteConfirm from "../elements/delete_confirm.jsx";
-import {createLesson, deleteLesson, updateLesson} from "../api/lessons_api.js";
-import LessonForm from "../forms/lesson_form.jsx";
-import {getStudentsList} from "../api/students_api.js";
+import CustomAlert from "../elements/customAlert.jsx";
+import DeleteConfirm from "../elements/deleteConfirm.jsx";
+import {createLesson, deleteLesson, updateLesson} from "../api/lessonsApi.js";
+import LessonForm from "../forms/lessonForm.jsx";
+import {getStudentsList} from "../api/studentsApi.js";
 
 
 export default function Lessons({fetchLessons, byPerson}) {
