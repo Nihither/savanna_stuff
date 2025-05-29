@@ -17,7 +17,7 @@ import {createStudent, getStudentsList} from "../api/studentsApi.js";
 import StudentForm from "../forms/studentForm.jsx";
 
 
-export default function StudentsPage() {
+export default function Students() {
 
   const [students, setStudents] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -113,7 +113,7 @@ export default function StudentsPage() {
       {error ?
         (
           <Alert severity="error">
-            Network error. Please try later
+            {error}
           </Alert>
         ) :
         (isLoaded ?

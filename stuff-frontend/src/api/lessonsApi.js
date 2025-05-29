@@ -1,5 +1,6 @@
 import {handleResponse} from "./responseHandlers.js";
 import {STUFF_ROUTES} from "../common/staticValues.js";
+import {getToken} from "./authApi.js";
 
 
 export async function createLesson(formData) {
@@ -7,8 +8,8 @@ export async function createLesson(formData) {
   let response = await fetch(url, {
     method: "POST",
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
     body: JSON.stringify(formData)
   })
@@ -20,8 +21,8 @@ export async function updateLesson(id, formData) {
   let response = await fetch(url, {
     method: "PUT",
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
     body: JSON.stringify(formData)
   })
@@ -33,7 +34,7 @@ export async function deleteLesson(id) {
   let response = await fetch(url, {
     method: "DELETE",
     headers: {
-      'Authorization': `Token ${localStorage.getItem('token')}`
+      'Authorization': `Token ${getToken()}`,
     }
   })
   return handleResponse(response)

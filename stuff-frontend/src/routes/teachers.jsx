@@ -17,7 +17,7 @@ import CustomAlert from "../elements/customAlert.jsx";
 import TeacherForm from "../forms/teacherForm.jsx";
 
 
-export default function TeachersPage() {
+export default function Teachers() {
 
   const [teachers, setTeachers] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -113,7 +113,7 @@ export default function TeachersPage() {
       {error ?
         (
           <Alert severity="error">
-            Network error. Please try later
+            {error}
           </Alert>
         ) :
         (isLoaded ?

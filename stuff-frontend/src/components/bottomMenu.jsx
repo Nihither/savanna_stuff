@@ -10,13 +10,13 @@ export default function BottomMenu() {
     <Paper elevation={15} sx={{position: 'fixed', bottom: 0, left: 0, right: 0, paddingBottom: 2, zIndex: 100}}>
       <BottomNavigation showLabels={true}>
         <BottomNavigationAction component={Link} to="/reminders"
-                                label="RemindersPage" icon={<Notifications />} />
+                                label="Reminders" icon={<Notifications />} />
         <BottomNavigationAction component={Link} to="/reports"
-                                label="ReportsPage" icon={<TaskAlt />} />
+                                label="Reports" icon={<TaskAlt />} />
         <BottomNavigationAction component={Link} to="/teachers"
-                                label="TeachersPage" icon={<School />} />
+                                label="Teachers" icon={<School />} />
         <BottomNavigationAction component={Link} to="/students"
-                                label="StudentsPage" icon={<BabyChangingStation />} />
+                                label="Students" icon={<BabyChangingStation />} />
       </BottomNavigation>
     </Paper>
   )

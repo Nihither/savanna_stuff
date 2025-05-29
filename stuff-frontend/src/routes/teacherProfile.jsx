@@ -15,16 +15,16 @@ import {
   Stack,
   Typography
 } from "@mui/material";
+import {deleteTeacher, getLessonsByTeacher, getTeacherDetails, updateTeacher} from "../api/teachersApi.js";
 import {formatDateFromString, getFullName} from "../utils/formating.js";
 import {Cake, Delete, Edit, MoreVert, Phone, Telegram, WhatsApp} from "@mui/icons-material";
 import DeleteConfirm from "../elements/deleteConfirm.jsx";
+import TeacherForm from "../forms/teacherForm.jsx";
 import CustomAlert from "../elements/customAlert.jsx";
-import {deleteStudent, getLessonsByStudent, getStudentDetail, updateStudent} from "../api/studentsApi.js";
 import Lessons from "../components/lessons.jsx";
-import StudentForm from "../forms/studentForm.jsx";
 
 
-export default function StudentProfilePage() {
+export default function TeacherProfile() {
 
   const navigate = useNavigate();
   const {id} = useParams();
@@ -65,14 +65,14 @@ export default function StudentProfilePage() {
     handleOptionMenuClose();
     toggleDrawer(true);
   };
-  const handleStudentDelete = () => {
-    deleteStudent(id)
+  const handleTeacherDelete = () => {
+    deleteTeacher(id)
       .then(() => {
         setAlertText("Successfully deleted")
         setAlertSeverity("success")
         setAlertOpen(true)
         setTimeout(() => {
-          navigate("/students")
+          navigate("/teachers")
         }, 2000)
       })
       .catch((error) => {
@@ -82,8 +82,8 @@ export default function StudentProfilePage() {
       })
     handleDrawerClose()
   };
-  const handleStudentEdit = (data) => {
-    updateStudent(id, data)
+  const handleTeacherEdit = (data) => {
+    updateTeacher(id, data)
       .then(() => {
         setAlertText("Successfully updated")
         setAlertSeverity("success")
@@ -99,9 +99,9 @@ export default function StudentProfilePage() {
   }
 
   const fetchData = () => {
-    getStudentDetail(id)
-      .then(student => {
-        setPerson(student);
+    getTeacherDetails(id)
+      .then(teacher => {
+        setPerson(teacher);
       })
       .catch(error => {
         setDataLoadingError(error.toString())
@@ -193,7 +193,7 @@ export default function StudentProfilePage() {
         ))}
 
       {/*LessonsByPerson section*/}
-      <Lessons fetchLessons={getLessonsByStudent} byPerson={"student"}/>
+      <Lessons fetchLessons={getLessonsByTeacher} byPerson={"teacher"}/>
 
       {/*Alert section*/}
       <CustomAlert
@@ -211,14 +211,14 @@ export default function StudentProfilePage() {
           onClose={handleDrawerClose}
         >
           {edit ? (
-            <StudentForm
-              student={person}
+            <TeacherForm
+              teacher={person}
               handleDrawerClose={handleDrawerClose}
-              handleTeacherSave={handleStudentEdit}
+              handleTeacherSave={handleTeacherEdit}
             />
           ) : (
             deleting ? (
-              <DeleteConfirm handleCancel={handleDrawerClose} handleConfirm={handleStudentDelete}/>
+              <DeleteConfirm handleCancel={handleDrawerClose} handleConfirm={handleTeacherDelete}/>
             ) : (
               <></>
             )

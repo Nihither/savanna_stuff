@@ -1,11 +1,16 @@
 import {AUTH_ROUTES} from "../common/staticValues.js";
 
+
 export function getUser() {
   return localStorage.getItem("user")
 }
 
 export function getToken() {
   return localStorage.getItem("token")
+}
+
+export function cleanAuthInfo() {
+  localStorage.clear()
 }
 
 export async function signIn(formData) {
@@ -15,7 +20,6 @@ export async function signIn(formData) {
     headers: {
       'Content-Type': 'application/json'
     },
-    // credentials: 'include',
     body: JSON.stringify(formData)
   })
   if (response.ok) {

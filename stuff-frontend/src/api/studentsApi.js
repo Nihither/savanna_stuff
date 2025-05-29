@@ -1,5 +1,6 @@
 import {handleDataResponse, handleResponse} from "./responseHandlers.js";
 import {STUFF_ROUTES} from "../common/staticValues.js";
+import {getToken} from "./authApi.js";
 
 
 export async function getStudentsList() {
@@ -7,8 +8,8 @@ export async function getStudentsList() {
   let response = await fetch(url, {
     method: 'GET',
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
   })
   return handleDataResponse(response)
@@ -19,8 +20,8 @@ export async function getStudentDetail(id) {
   let response = await fetch(url, {
     method: 'GET',
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
   })
   return handleDataResponse(response)
@@ -31,8 +32,8 @@ export async function createStudent(formData) {
   let response  = await fetch(url, {
     method: "POST",
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
     body: JSON.stringify(formData)
   })
@@ -44,8 +45,8 @@ export async function updateStudent(id, formData) {
   let response = await fetch(url, {
     method: "PUT",
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
     body: JSON.stringify(formData)
   })
@@ -57,7 +58,7 @@ export async function deleteStudent(id) {
   let response = await fetch(url, {
     method: 'DELETE',
     headers: {
-      'Authorization': `Token ${localStorage.getItem('token')}`
+      'Authorization': `Token ${getToken()}`,
     }
   })
   return handleResponse(response)
@@ -68,8 +69,8 @@ export async function getLessonsByStudent(id) {
   let response = await fetch(url, {
     method: 'GET',
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
   })
   return handleDataResponse(response)

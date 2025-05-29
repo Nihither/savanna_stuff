@@ -4,9 +4,9 @@ import ReportsList from "../components/reportsList.jsx";
 import {getReportsList} from "../api/reportsApi.js";
 
 
-export default function ReportsPage() {
+export default function Reports() {
 
-  const [reports, setReports] = useState([]);
+  const [reports, setReports] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [error, setError] = useState('')
 

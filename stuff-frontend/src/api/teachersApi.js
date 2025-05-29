@@ -1,14 +1,14 @@
 import {handleDataResponse, handleResponse} from "./responseHandlers.js";
 import {STUFF_ROUTES} from "../common/staticValues.js";
-import Cookie from 'js-cookie';
+import {getToken} from "./authApi.js";
 
 export async function getTeachersList() {
   let url = STUFF_ROUTES.TEACHERS;
   let response = await fetch(url, {
     method: 'GET',
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
   })
   return handleDataResponse(response)
@@ -19,8 +19,8 @@ export async function getTeacherDetails(id) {
   let response = await fetch(url, {
     method: 'GET',
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
   })
   return handleDataResponse(response)
@@ -31,8 +31,8 @@ export async function createTeacher(formData) {
   let response  = await fetch(url, {
     method: "POST",
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
     body: JSON.stringify(formData)
   })
@@ -44,8 +44,8 @@ export async function updateTeacher(id, formData) {
   let response = await fetch(url, {
     method: "PUT",
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
     body: JSON.stringify(formData)
   })
@@ -54,13 +54,10 @@ export async function updateTeacher(id, formData) {
 
 export async function deleteTeacher(id) {
   let url = `${STUFF_ROUTES.TEACHERS}/${id}`;
-  let token = Cookie.get('csrftoken')
-  console.log(token)
   let response = await fetch(url, {
     method: 'DELETE',
     headers: {
-      'Authorization': `Token ${localStorage.getItem('token')}`,
-      // 'X-CSRFToken': Cookie.get('csrftoken')
+      'Authorization': `Token ${getToken()}`,
     },
   })
   return handleResponse(response)
@@ -71,8 +68,8 @@ export async function getLessonsByTeacher(id){
   let response = await fetch(url, {
     method: 'GET',
     headers: {
+      'Authorization': `Token ${getToken()}`,
       'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('token')}`
     },
   })
   return handleDataResponse(response)

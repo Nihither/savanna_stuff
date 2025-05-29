@@ -4,7 +4,7 @@ import RemindersList from "../components/remindersList.jsx";
 import {getRemindersList} from "../api/remindersApi.js";
 
 
-export default function RemindersPage() {
+export default function Reminders() {
 
   const [reminders, setReminders] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);

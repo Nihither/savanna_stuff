@@ -2,14 +2,16 @@ from datetime import datetime, timedelta
 
 from django.db.models import Prefetch, Count, Q
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from stuff.stuff_serializers import *
 
 
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def reminders(request):
     if request.method == "GET":
         next_day = datetime.today() + timedelta(days=1)
