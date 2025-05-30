@@ -30,3 +30,8 @@ export async function signIn(formData) {
     throw new Error(response.statusText);
   }
 }
+
+export async function signout() {
+  let url = AUTH_ROUTES.SIGN_OUT
+  cleanAuthInfo()
+}

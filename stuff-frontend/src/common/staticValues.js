@@ -3,7 +3,8 @@ const AUTH_BASE_URL = `${API_HOST}/api/auth`
 const STUFF_BASE_URL = `${API_HOST}/api/stuff`
 
 export const AUTH_ROUTES = {
-  SIGN_IN: `${AUTH_BASE_URL}/signin`
+  SIGN_IN: `${AUTH_BASE_URL}/signin`,
+  SIGN_OUT: `${AUTH_BASE_URL}/signout`
 }
 
 export const STUFF_ROUTES = {

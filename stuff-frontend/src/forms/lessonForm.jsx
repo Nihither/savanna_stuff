@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
+import {Box, Button, FormControl, FormLabel, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
 import {WEEKDAYS} from "../common/staticValues.js";
 import {getFullName} from "../utils/formating.js";
 import {useParams} from "react-router-dom";
@@ -52,13 +52,12 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
          autoComplete="off"
     >
       <FormControl fullWidth sx={{my: 1}}>
-        <InputLabel id="teacher-select-label">Преподаватель</InputLabel>
+        <FormLabel id="teacher-select-label">Преподаватель</FormLabel>
         <Select
           required
           labelId="teacher-select-label"
           id="teacher-select"
           value={teacher}
-          label="Преподаватель"
           onChange={handleTeacherChange}
         >
           { Array.isArray(teachers) && teachers.length > 0 ? (
@@ -71,13 +70,12 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{my: 1}}>
-        <InputLabel id="student-select-label">Ученик</InputLabel>
+        <FormLabel id="student-select-label">Ученик</FormLabel>
         <Select
           required
           labelId="student-select-label"
           id="student-select"
           value={student}
-          label="Ученик"
           onChange={handleStudentChange}
         >
           { Array.isArray(students) && students.length > 0 ? (
@@ -90,13 +88,12 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{my: 1}}>
-        <InputLabel id="day-select-label">День недели</InputLabel>
+        <FormLabel id="day-select-label">День недели</FormLabel>
         <Select
           required
           labelId="day-select-label"
           id="day-select"
           value={day}
-          label="День недели"
           onChange={handleDayChange}
         >
           {WEEKDAYS.map(weekday => (
@@ -104,13 +101,15 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
           ))}
         </Select>
       </FormControl>
-      <TextField
-        fullWidth
-        name="timestamp"
-        label="Время"
-        onChange={handleTimestampChange}
-        value={timestamp}
-      />
+      <FormControl fullWidth sx={{my: 1}}>
+        <FormLabel id="timestamp-label">Время</FormLabel>
+        <TextField
+          fullWidth
+          name="timestamp"
+          onChange={handleTimestampChange}
+          value={timestamp}
+        />
+      </FormControl>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Button variant="outlined" color="info" onClick={handleDrawerClose}>Отмена</Button>

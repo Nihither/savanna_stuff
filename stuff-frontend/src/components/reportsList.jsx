@@ -1,6 +1,7 @@
 import React from 'react';
-import {Avatar, List, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
+import {List, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
 import {formatDateTime, getFullName} from "../utils/formating.js";
+import {EventAvailable} from "@mui/icons-material";
 
 
 function getMessageLink(lesson) {
@@ -18,7 +19,7 @@ export default function ReportsList(props) {
       {reports.map((lesson) => (
         <ListItemButton key={lesson.id} component={'a'} href={getMessageLink(lesson)} target="_blank">
           <ListItemAvatar>
-            <Avatar />
+            <EventAvailable />
           </ListItemAvatar>
           <ListItemText
             primary={getFullName(lesson.student)}

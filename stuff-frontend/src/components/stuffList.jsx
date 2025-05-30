@@ -1,7 +1,8 @@
 import React from 'react';
-import {Avatar, List, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
+import {List, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
 import {getFullName} from "../utils/formating.js";
 import {Link, useLocation} from "react-router-dom";
+import {Person} from "@mui/icons-material";
 
 
 export default function StuffList(props) {
@@ -14,7 +15,7 @@ export default function StuffList(props) {
       {stuff.map((person) => (
         <ListItemButton key={person.id} component={Link} to={`${location.pathname}/${person.id}`}>
           <ListItemAvatar>
-            <Avatar />
+            <Person />
           </ListItemAvatar>
           <ListItemText primary={getFullName(person)} />
         </ListItemButton>

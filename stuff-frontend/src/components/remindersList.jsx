@@ -1,6 +1,7 @@
 import React from 'react';
-import {Avatar, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader} from "@mui/material";
+import {List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader} from "@mui/material";
 import {formatDateTime, getFormatedReminderMessage, getFullName} from "../utils/formating.js";
+import {Today} from "@mui/icons-material";
 
 
 function getMessageLink(lesson) {
@@ -22,7 +23,7 @@ export default function RemindersList(props) {
             {teacher.lessons.map((lesson) => (
               <ListItemButton key={lesson.pk} component={'a'} href={getMessageLink(lesson)} target="_blank">
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Today/>
                 </ListItemAvatar>
                 <ListItemText
                   primary={getFullName(lesson.student)} secondary={formatDateTime(lesson.day, lesson.timestamp)}

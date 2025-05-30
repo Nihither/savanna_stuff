@@ -5,12 +5,13 @@ import BottomMenu from "../components/bottomMenu.jsx";
 import AppHeader from "../components/appHeader.jsx";
 import {getToken, getUser} from "../api/authApi.js";
 import {Layout} from "./layout.jsx";
+import {AUTH_ROUTES} from "../common/staticValues.js";
 
 
 export function rootLoader() {
   const authenticated = (getUser() && getToken())
   if (!authenticated) {
-    return redirect('/login')
+    return redirect('login')
   }
 }
 
