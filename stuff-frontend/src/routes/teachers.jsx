@@ -13,7 +13,7 @@ import {
 import StuffList from "../components/stuffList.jsx";
 import {createTeacher, getTeachersList} from "../api/teachersApi.js";
 import {MoreVert, PersonAdd} from "@mui/icons-material";
-import CustomAlert from "../elements/customAlert.jsx";
+import CustomAlert from "../components/elements/customAlert.jsx";
 import TeacherForm from "../forms/teacherForm.jsx";
 
 

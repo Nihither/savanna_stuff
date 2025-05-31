@@ -17,8 +17,8 @@ import {
 } from "@mui/material";
 import {formatDateFromString, getFullName} from "../utils/formating.js";
 import {Cake, Delete, Edit, MoreVert, Phone, Telegram, WhatsApp} from "@mui/icons-material";
-import DeleteConfirm from "../elements/deleteConfirm.jsx";
-import CustomAlert from "../elements/customAlert.jsx";
+import DeleteConfirm from "../components/elements/deleteConfirm.jsx";
+import CustomAlert from "../components/elements/customAlert.jsx";
 import {deleteStudent, getLessonsByStudent, getStudentDetail, updateStudent} from "../api/studentsApi.js";
 import Lessons from "../components/lessons.jsx";
 import StudentForm from "../forms/studentForm.jsx";
@@ -184,7 +184,52 @@ export default function StudentProfile() {
             ) : (
               <Typography variant="body1" color="textSecondary">Телефон не указан</Typography>
             )}
+
             <Divider variant="middle" component="div"/>
+
+            {person.has_parent ? (
+              <Box component="div">
+                <Stack direction="row" justifyContent="space-between" alignItems="baseline">
+                  <Typography variant="h6" sx={{marginX: 1, paddingY: 1}}>
+                    {person.parent_first_name} {person.parent_last_name}
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">Родитель</Typography>
+                </Stack>
+
+                {person.parent_birthday ? (
+                  <Chip icon={<Cake/>} label={formatDateFromString(person.parent_birthday)} sx={{paddingX: 1}}/>
+                ) : undefined}
+
+                {person.parent_phone ? (
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{paddingX: 1}}
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Typography variant="body1" color="textSecondary" sx={{paddingY: 1}}>
+                      Tel: +{person.parent_phone}
+                    </Typography>
+                    <Stack direction="row" spacing={2}>
+                      <IconButton component={"a"} href={`https://wa.me/${person.parent_phone}`} target="_blank">
+                        <WhatsApp color="success"/>
+                      </IconButton>
+                      <IconButton component={"a"} href={`https://t.me/+${person.parent_phone}`} target="_blank">
+                        <Telegram color="primary"/>
+                      </IconButton>
+                      <IconButton component={"a"} href={`tel://${person.parent_phone}`}>
+                        <Phone color="warning"/>
+                      </IconButton>
+                    </Stack>
+                  </Stack>
+                ) : (
+                  <Typography variant="body1" color="textSecondary">Телефон не указан</Typography>
+                )}
+              </Box>
+            ) : undefined}
+
+            <Divider variant="fullWidth" component="div"/>
           </Box>
         ) : (
           <Box sx={{width: '100%'}}>
@@ -214,14 +259,12 @@ export default function StudentProfile() {
             <StudentForm
               student={person}
               handleDrawerClose={handleDrawerClose}
-              handleTeacherSave={handleStudentEdit}
+              handleStudentSave={handleStudentEdit}
             />
           ) : (
             deleting ? (
               <DeleteConfirm handleCancel={handleDrawerClose} handleConfirm={handleStudentDelete}/>
-            ) : (
-              <></>
-            )
+            ) : undefined
           )}
         </Drawer>
       </React.Fragment>

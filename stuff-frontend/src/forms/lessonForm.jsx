@@ -48,7 +48,7 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
   return (
     <Box component={"form"}
          onSubmit={onFormSubmit}
-         sx={{'& .MuiTextField-root': {my: 1}, marginY: 4, marginX: 3}}
+         sx={{'& .MuiTextField-root': {my: 1}, '& .MuiButton-root': {my: 1}, marginY: 4, marginX: 3}}
          autoComplete="off"
     >
       <FormControl fullWidth sx={{my: 1}}>

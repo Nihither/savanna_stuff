@@ -15,8 +15,8 @@ import {getTeachersList} from "../api/teachersApi.js";
 import {formatDateTime, getFullName} from "../utils/formating.js";
 import {AddCircleOutline, Delete, Edit, MoreVert, PersonAdd} from "@mui/icons-material";
 import {useParams} from "react-router-dom";
-import CustomAlert from "../elements/customAlert.jsx";
-import DeleteConfirm from "../elements/deleteConfirm.jsx";
+import CustomAlert from "./elements/customAlert.jsx";
+import DeleteConfirm from "./elements/deleteConfirm.jsx";
 import {createLesson, deleteLesson, updateLesson} from "../api/lessonsApi.js";
 import LessonForm from "../forms/lessonForm.jsx";
 import {getStudentsList} from "../api/studentsApi.js";
@@ -302,3 +302,5 @@ export default function Lessons({fetchLessons, byPerson}) {
     </Box>
   )
 }
+
+//TODO needs to add lessons sorting by weekday

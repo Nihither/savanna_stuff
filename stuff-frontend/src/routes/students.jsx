@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import StuffList from "../components/stuffList.jsx";
 import {MoreVert, PersonAdd} from "@mui/icons-material";
-import CustomAlert from "../elements/customAlert.jsx";
+import CustomAlert from "../components/elements/customAlert.jsx";
 import {createStudent, getStudentsList} from "../api/studentsApi.js";
 import StudentForm from "../forms/studentForm.jsx";
 

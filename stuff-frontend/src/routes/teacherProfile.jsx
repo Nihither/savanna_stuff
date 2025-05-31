@@ -18,9 +18,9 @@ import {
 import {deleteTeacher, getLessonsByTeacher, getTeacherDetails, updateTeacher} from "../api/teachersApi.js";
 import {formatDateFromString, getFullName} from "../utils/formating.js";
 import {Cake, Delete, Edit, MoreVert, Phone, Telegram, WhatsApp} from "@mui/icons-material";
-import DeleteConfirm from "../elements/deleteConfirm.jsx";
+import DeleteConfirm from "../components/elements/deleteConfirm.jsx";
 import TeacherForm from "../forms/teacherForm.jsx";
-import CustomAlert from "../elements/customAlert.jsx";
+import CustomAlert from "../components/elements/customAlert.jsx";
 import Lessons from "../components/lessons.jsx";
 
 

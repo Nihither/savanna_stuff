@@ -44,7 +44,7 @@ export default function TeacherForm({handleTeacherSave, handleDrawerClose, teach
   return (
     <Box component={"form"}
          onSubmit={onFormSubmit}
-         sx={{'& .MuiTextField-root': {my: 1}, marginY: 4, marginX: 3}}
+         sx={{'& .MuiTextField-root': {my: 1}, '& .MuiButton-root': {my: 1}, marginY: 4, marginX: 3}}
          autoComplete="off">
       <TextField
         fullWidth
