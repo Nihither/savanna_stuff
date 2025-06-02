@@ -4,6 +4,7 @@ from stuff.lessons_views import reminders, reports, lesson, lessons
 from stuff.students_views import students, student, student_lessons
 from stuff.teachers_views import teachers, teacher, teacher_lessons
 
+
 urlpatterns = [
     path('reminders', reminders),
     path('reports', reports),

@@ -5,12 +5,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    # 'django.contrib.sessions',
     'django.contrib.messages',
-    # 'django.contrib.staticfiles',
 ]
 
 REST_FRAMEWORK = {
@@ -21,6 +20,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+
+CRONJOBS = [
+    ('0 12 * * *', 'stuff.scheduler.birthday_notification', '>> /var/logs/scheduler_job.log 2>&1')
+]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
