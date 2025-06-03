@@ -1,4 +1,4 @@
-const API_HOST = 'http://192.168.0.47:8080'
+const API_HOST = import.meta.env.VITE_API_HOST
 const AUTH_BASE_URL = `${API_HOST}/api/auth`
 const STUFF_BASE_URL = `${API_HOST}/api/stuff`
 
