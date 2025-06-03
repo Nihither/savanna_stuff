@@ -31,7 +31,13 @@ export async function signIn(formData) {
   }
 }
 
-export async function signout() {
+export function signout() {
   let url = AUTH_ROUTES.SIGN_OUT
+  fetch(url, {
+    method: "GET",
+    headers: {
+      'Authorization': `Token ${getToken()}`,
+    }
+  })
   cleanAuthInfo()
 }
