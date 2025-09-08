@@ -31,6 +31,8 @@ class Student(models.Model):
             new_messages = Message()
             new_messages.student = self
             new_messages.save()
+        else:
+            super(Student, self).save(*args, **kwargs)
 
 
 class Lesson(models.Model):
