@@ -1,6 +1,6 @@
 from django.urls import path
 
-from stuff.auth_views import signin, signout, pass_change
+from stuff.views.auth_views import signin, signout, pass_change
 
 urlpatterns = [
     path('signin', signin),

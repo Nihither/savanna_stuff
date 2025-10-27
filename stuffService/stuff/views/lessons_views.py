@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
-from stuff.stuff_serializers import *
+from stuff.serializers.stuff_serializers import *
 
 
 @api_view(["GET"])

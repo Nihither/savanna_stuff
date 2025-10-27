@@ -60,7 +60,7 @@ class Message(models.Model):
     reminder_is_required = models.BooleanField(verbose_name="Нужно ли напоминать?", default=True)
     reminder_message = models.TextField(verbose_name="Текст для напоминания",
                                         default="Добрый день.\r\n"
-                                                "Напоминаем об уроке завтра dd.mm в hh:MM")
+                                                "Напоминаем об уроке завтра date в time")
     report_is_required = models.BooleanField(verbose_name="Нужно ли сообщать о проведении?", default=True)
     report_message = models.TextField(verbose_name="Текст для отчета",
                                       default="""Добрый день.\r\nУрок провели.\r\nОсталось i оплаченных занятий из n""")
