@@ -222,7 +222,6 @@ export default function Lessons({fetchLessons, byPerson}) {
                       <Avatar />
                     </ListItemAvatar>
                     <ListItemText
-                      // primary={getFullName(lesson.student)}
                       primary={ byPerson === 'teacher' ? (getFullName(lesson.student)) : (getFullName(lesson.teacher))}
                       secondary={`${formatDateTime(lesson.day, lesson.timestamp)}`}
                     />
@@ -289,6 +288,7 @@ export default function Lessons({fetchLessons, byPerson}) {
               students={students}
               handleDrawerClose={handleDrawerClose}
               handleLessonSave={adding ? handleLessonCreate : handleLessonEdit}
+              byPerson={byPerson}
             />
           ) : (
             deleting ? (

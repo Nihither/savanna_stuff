@@ -43,7 +43,7 @@ export function getFormatedReminderMessage(message, time) {
   const formated_time = getFormatedTime(time)
   const tomorrow_date = new Date(Date.now() + 24 * 60 * 60 * 1000)
   const formated_tomorrow = formatDateFromString(tomorrow_date)
-  message = message.replace("dd.mm", formated_tomorrow)
-  message = message.replace("hh:MM", formated_time)
+  message = message.replace("date", formated_tomorrow)
+  message = message.replace("time", formated_time)
   return message
 }

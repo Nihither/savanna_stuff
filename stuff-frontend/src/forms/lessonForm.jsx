@@ -5,7 +5,7 @@ import {getFullName} from "../utils/formating.js";
 import {useParams} from "react-router-dom";
 
 
-export default function LessonForm({lesson, teachers, students, handleDrawerClose, handleLessonSave}) {
+export default function LessonForm({lesson, teachers, students, handleDrawerClose, handleLessonSave, byPerson}) {
 
   const {id} = useParams()
   const [teacher, setTeacher] = useState(null)
@@ -38,8 +38,8 @@ export default function LessonForm({lesson, teachers, students, handleDrawerClos
 
   useEffect(() => {
     if (lesson) {
-      setTeacher(id);
-      setStudent(lesson.student.id);
+      setTeacher(byPerson === "teacher" ? id : lesson.teacher.id);
+      setStudent(byPerson === "student" ? id : lesson.student.id);
       setDay(lesson.day);
       setTimestamp(lesson.timestamp)
     }

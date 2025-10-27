@@ -16,12 +16,14 @@ import {
   Typography
 } from "@mui/material";
 import {formatDateFromString, getFullName} from "../utils/formating.js";
-import {Cake, Delete, Edit, MoreVert, Phone, Telegram, WhatsApp} from "@mui/icons-material";
+import {Cake, Delete, Edit, Message, MoreVert, Phone, Telegram, WhatsApp} from "@mui/icons-material";
 import DeleteConfirm from "../components/elements/deleteConfirm.jsx";
 import CustomAlert from "../components/elements/customAlert.jsx";
 import {deleteStudent, getLessonsByStudent, getStudentDetail, updateStudent} from "../api/studentsApi.js";
 import Lessons from "../components/lessons.jsx";
 import StudentForm from "../forms/studentForm.jsx";
+import {getMessages, updateMessages} from "../api/messagesApi.js";
+import MessagesForm from "../forms/messagesForm.jsx";
 
 
 export default function StudentProfile() {
@@ -29,8 +31,10 @@ export default function StudentProfile() {
   const navigate = useNavigate();
   const {id} = useParams();
   const [person, setPerson] = useState(null);
+  const [messages, setMessages] = useState(null)
   const [dataLoadingError, setDataLoadingError] = useState('');
-  const [edit, setEdit] = useState(false);
+  const [editProfile, setEditProfile] = useState(false);
+  const [editMessages, setEditMessages] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
@@ -38,6 +42,7 @@ export default function StudentProfile() {
   const [alertText, setAlertText] = useState(null)
   const [alertSeverity, setAlertSeverity] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
+
   const handleAlertClose = () => {
     setAlertOpen(false)
   }
@@ -45,8 +50,9 @@ export default function StudentProfile() {
     setModalOpen(newOpen);
   };
   const handleDrawerClose = () => {
-    setEdit(false);
+    setEditProfile(false);
     setDeleting(false);
+    setEditMessages(false);
     toggleDrawer(false);
   };
   const handleOptionMenuClick = (event) => {
@@ -56,7 +62,7 @@ export default function StudentProfile() {
     setAnchorEl(null);
   };
   const handleEditPersonButton = () => {
-    setEdit(true);
+    setEditProfile(true);
     handleOptionMenuClose()
     toggleDrawer(true)
   };
@@ -65,6 +71,11 @@ export default function StudentProfile() {
     handleOptionMenuClose();
     toggleDrawer(true);
   };
+  const handleEditMessagesButton = () => {
+    setEditMessages(true)
+    handleOptionMenuClose()
+    toggleDrawer(true)
+  }
   const handleStudentDelete = () => {
     deleteStudent(id)
       .then(() => {
@@ -97,6 +108,20 @@ export default function StudentProfile() {
       })
     handleDrawerClose()
   }
+  const handleMessageEdit = (data) => {
+    updateMessages(id, data)
+      .then(() => {
+        setAlertText("Successfully updated")
+        setAlertSeverity("success")
+        setAlertOpen(true)
+      })
+      .catch((error) => {
+        setAlertText(error.toString())
+        setAlertSeverity("error")
+        setAlertOpen(true)
+      })
+    handleDrawerClose()
+  }
 
   const fetchData = () => {
     getStudentDetail(id)
@@ -107,9 +132,19 @@ export default function StudentProfile() {
         setDataLoadingError(error.toString())
       })
   }
+  const fetchMessages = () => {
+    getMessages(id)
+      .then(messages => {
+        setMessages(messages)
+      })
+      .catch(error => {
+        setDataLoadingError(error.toString())
+      })
+  }
 
   useEffect(() => {
-    fetchData();
+    fetchData()
+    fetchMessages()
   }, []);
 
   return (
@@ -143,13 +178,19 @@ export default function StudentProfile() {
                   <ListItemIcon>
                     <Edit fontSize="small"/>
                   </ListItemIcon>
-                  <ListItemText primary="Изменить"/>
+                  <ListItemText primary="Изменить данные студента"/>
+                </MenuItem>
+                <MenuItem onClick={handleEditMessagesButton}>
+                  <ListItemIcon>
+                    <Message fontSize="small"/>
+                  </ListItemIcon>
+                  <ListItemText primary="Изменить шаблоны сообщений"/>
                 </MenuItem>
                 <MenuItem onClick={handleDeletePersonButton}>
                   <ListItemIcon>
                     <Delete fontSize="small"/>
                   </ListItemIcon>
-                  <ListItemText primary="Удалить"/>
+                  <ListItemText primary="Удалить студента"/>
                 </MenuItem>
               </Menu>
             </Stack>
@@ -255,7 +296,7 @@ export default function StudentProfile() {
           open={modalOpen}
           onClose={handleDrawerClose}
         >
-          {edit ? (
+          {editProfile ? (
             <StudentForm
               student={person}
               handleDrawerClose={handleDrawerClose}
@@ -264,7 +305,15 @@ export default function StudentProfile() {
           ) : (
             deleting ? (
               <DeleteConfirm handleCancel={handleDrawerClose} handleConfirm={handleStudentDelete}/>
-            ) : undefined
+            ) : (
+              editMessages ? (
+                <MessagesForm
+                  messages={messages}
+                  handleDrawerClose={handleDrawerClose}
+                  handleMessageSave={handleMessageEdit}
+                />
+              ) : undefined
+            )
           )}
         </Drawer>
       </React.Fragment>

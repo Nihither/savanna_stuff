@@ -143,13 +143,13 @@ export default function TeacherProfile() {
                   <ListItemIcon>
                     <Edit fontSize="small"/>
                   </ListItemIcon>
-                  <ListItemText primary="Изменить"/>
+                  <ListItemText primary="Изменить данные препродавателя"/>
                 </MenuItem>
                 <MenuItem onClick={handleDeletePersonButton}>
                   <ListItemIcon>
                     <Delete fontSize="small"/>
                   </ListItemIcon>
-                  <ListItemText primary="Удалить"/>
+                  <ListItemText primary="Удалить преподавателя"/>
                 </MenuItem>
               </Menu>
             </Stack>
