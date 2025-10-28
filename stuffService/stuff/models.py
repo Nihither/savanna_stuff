@@ -69,3 +69,26 @@ class Message(models.Model):
 
     def __str__(self):
         return f"Шаблоны сообщений для {self.student}"
+
+
+class CancelledLesson(models.Model):
+    lesson = models.ForeignKey(to=Lesson, on_delete=models.SET_NULL, blank=True, null=True,
+                               related_name="cancelled_lessons", verbose_name="Отмененное занятие")
+    date = models.DateField(verbose_name="Дата")
+
+    def __str__(self):
+        return f"Отмена занятия {self.lesson} {self.date}"
+
+
+class ExtraLesson(models.Model):
+    teacher = models.ForeignKey(to=Teacher, on_delete=models.CASCADE, blank=True, null=True,
+                                related_name="extra_lessons", verbose_name="Преподаватель")
+    student = models.ForeignKey(to=Student, on_delete=models.CASCADE, blank=True, null=True,
+                                related_name="extra_lessons", verbose_name="Ученик")
+    date = models.DateField(verbose_name="Дата")
+    time = models.TimeField(verbose_name="Время")
+    cancelled_lesson = models.ForeignKey(to=CancelledLesson, on_delete=models.SET_NULL, blank=True, null=True,
+                                         related_name="extra_lessons", verbose_name="Отмененное занятие")
+
+    def __str__(self):
+        return f"Доп занятие {self.teacher} {self.student} {self.date}"

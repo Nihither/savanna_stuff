@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from stuff.models import Teacher, Student, Lesson, Message
+from stuff.models import Teacher, Student, Lesson, Message, CancelledLesson, ExtraLesson
 
 
 class LessonInline(admin.StackedInline):
@@ -29,3 +29,5 @@ admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Message)
+admin.site.register(CancelledLesson)
+admin.site.register(ExtraLesson)
