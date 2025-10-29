@@ -14,15 +14,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-}
-
 CRONJOBS = [
     ('0 12 * * *', 'stuff.scheduler.birthday_notification', '>> /var/logs/scheduler_job.log 2>&1')
 ]

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
@@ -55,6 +57,32 @@ def student_lessons(request, student_id):
         lessons = Lesson.objects.filter(student=student_obj)
         if lessons:
             serializer = LessonsByStudentSerializer(lessons, context={'request': request}, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@api_view(["GET"])
+def student_cancelled_lessons(request, student_id):
+    if request.method == "GET":
+        cancelled_lessons = CancelledLesson.objects.filter(lesson__student__pk=student_id, date__gte=datetime.today())
+        if cancelled_lessons:
+            serializer = CancelledLessonSerializer(instance=cancelled_lessons, context={'request': request}, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@api_view(["GET"])
+def student_extra_lessons(request, student_id):
+    if request.method == "GET":
+        extra_lessons = ExtraLesson.objects.filter(student__pk=student_id, date__gte=datetime.today())
+        if extra_lessons:
+            serializer = ExtraLessonSerializer(instance=extra_lessons, context={'request': request}, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)

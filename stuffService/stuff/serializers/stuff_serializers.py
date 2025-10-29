@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from stuff.models import Teacher, Student, Lesson, Message
+from stuff.models import Teacher, Student, Lesson, Message, CancelledLesson, ExtraLesson
 
 
 class TeacherModelSerializer(serializers.ModelSerializer):
@@ -57,6 +57,24 @@ class LessonWithParticipantsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
+        fields = "__all__"
+
+
+class CancelledLessonSerializer(serializers.ModelSerializer):
+    lesson = LessonWithParticipantsSerializer()
+
+    class Meta:
+        model = CancelledLesson
+        fields = "__all__"
+
+
+class ExtraLessonSerializer(serializers.ModelSerializer):
+    teacher = TeacherModelSerializer()
+    student = StudentModelSerializer()
+    cancelled_lesson = CancelledLessonSerializer()
+
+    class Meta:
+        model = ExtraLesson
         fields = "__all__"
 
 
