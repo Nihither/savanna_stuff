@@ -22,6 +22,7 @@ import DeleteConfirm from "../components/elements/deleteConfirm.jsx";
 import TeacherForm from "../forms/teacherForm.jsx";
 import CustomAlert from "../components/elements/customAlert.jsx";
 import Lessons from "../components/lessons.jsx";
+import {STUFF} from "../common/staticValues.js";
 
 
 export default function TeacherProfile() {
@@ -193,7 +194,7 @@ export default function TeacherProfile() {
         ))}
 
       {/*LessonsByPerson section*/}
-      <Lessons fetchLessons={getLessonsByTeacher} byPerson={"teacher"}/>
+      <Lessons fetchLessons={getLessonsByTeacher} byPerson={STUFF.TEACHER}/>
 
       {/*Alert section*/}
       <CustomAlert

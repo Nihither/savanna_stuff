@@ -15,6 +15,17 @@ export const STUFF_ROUTES = {
   LESSONS: `${STUFF_BASE_URL}/lessons`
 }
 
+export const STUFF = {
+  STUDENT: "student",
+  TEACHER: "teacher"
+}
+
+export const LESSON = {
+  USUAL: "usual",
+  CANCELLED: "cancelled",
+  EXTRA: "extra"
+}
+
 export const WEEKDAYS = [
   {id: 0, name: "Понедельник"},
   {id: 1, name: "Вторник"},

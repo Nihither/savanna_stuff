@@ -20,6 +20,7 @@ import DeleteConfirm from "./elements/deleteConfirm.jsx";
 import {createLesson, deleteLesson, updateLesson} from "../api/lessonsApi.js";
 import LessonForm from "../forms/lessonForm.jsx";
 import {getStudentsList} from "../api/studentsApi.js";
+import {STUFF} from "../common/staticValues.js";
 
 
 export default function Lessons({fetchLessons, byPerson}) {
@@ -57,7 +58,7 @@ export default function Lessons({fetchLessons, byPerson}) {
   };
   const handleOptionMenuClick = (event, lesson) => {
     setAnchorEl(event.currentTarget);
-    setLessonId(lesson.pk);
+    setLessonId(lesson.id);
     setLesson(lesson);
   };
   const handleOptionMenuClose = () => {
@@ -216,18 +217,18 @@ export default function Lessons({fetchLessons, byPerson}) {
           Array.isArray(lessons) && lessons.length > 0 ? (
             <List sx={{'& ul': { padding: 0 } }}>
               {lessons.map(lesson => (
-                <Stack direction="row" key={lesson.pk}>
-                  <ListItem key={lesson.pk}>
+                <Stack direction="row" key={lesson.id}>
+                  <ListItem key={lesson.id}>
                     <ListItemAvatar>
                       <Avatar />
                     </ListItemAvatar>
                     <ListItemText
-                      primary={ byPerson === 'teacher' ? (getFullName(lesson.student)) : (getFullName(lesson.teacher))}
+                      primary={ byPerson === STUFF.TEACHER ? (getFullName(lesson.student)) : (getFullName(lesson.teacher))}
                       secondary={`${formatDateTime(lesson.day, lesson.timestamp)}`}
                     />
                   </ListItem>
                   <IconButton
-                    id={"lesson-option-button-" + lesson.pk}
+                    id={"lesson-option-button-" + lesson.id}
                     aria-controls={menuOpen ? "lesson-option-menu" : undefined}
                     aria-haspopup="true"
                     aria-expanded={menuOpen ? 'true' : undefined}
