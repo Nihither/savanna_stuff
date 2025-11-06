@@ -19,11 +19,19 @@ import {formatDateFromString, getFullName} from "../utils/formating.js";
 import {Cake, Delete, Edit, Message, MoreVert, Phone, Telegram, WhatsApp} from "@mui/icons-material";
 import DeleteConfirm from "../components/elements/deleteConfirm.jsx";
 import CustomAlert from "../components/elements/customAlert.jsx";
-import {deleteStudent, getLessonsByStudent, getStudentDetail, updateStudent} from "../api/studentsApi.js";
+import {
+  deleteStudent,
+  getCancelledLessonsByStudent,
+  getLessonsByStudent,
+  getStudentDetail,
+  updateStudent
+} from "../api/studentsApi.js";
 import Lessons from "../components/lessons.jsx";
 import StudentForm from "../forms/studentForm.jsx";
 import {getMessages, updateMessages} from "../api/messagesApi.js";
 import MessagesForm from "../forms/messagesForm.jsx";
+import {STUFF} from "../common/staticValues.js";
+import CancelledLessons from "../components/cancelledLessons.jsx";
 
 
 export default function StudentProfile() {
@@ -279,7 +287,8 @@ export default function StudentProfile() {
         ))}
 
       {/*LessonsByPerson section*/}
-      <Lessons fetchLessons={getLessonsByStudent} byPerson={"student"}/>
+      <CancelledLessons fetchLessons={getCancelledLessonsByStudent} byPerson={STUFF.STUDENT}/>
+      <Lessons fetchLessons={getLessonsByStudent} byPerson={STUFF.STUDENT}/>
 
       {/*Alert section*/}
       <CustomAlert
