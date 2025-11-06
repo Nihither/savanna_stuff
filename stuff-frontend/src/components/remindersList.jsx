@@ -21,7 +21,7 @@ export default function RemindersList(props) {
           <ul>
             <ListSubheader>{getFullName(teacher)}</ListSubheader>
             {teacher.lessons.map((lesson) => (
-              <ListItemButton key={lesson.pk} component={'a'} href={getMessageLink(lesson)} target="_blank">
+              <ListItemButton key={lesson.id} component={'a'} href={getMessageLink(lesson)} target="_blank">
                 <ListItemAvatar>
                   <Today/>
                 </ListItemAvatar>

@@ -40,7 +40,7 @@ class LessonsByTeacherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ['pk', 'student', 'day', 'timestamp']
+        fields = "__all__"
 
 
 class LessonsByStudentSerializer(serializers.ModelSerializer):
@@ -48,7 +48,7 @@ class LessonsByStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ['pk', 'teacher', 'day', 'timestamp']
+        fields = "__all__"
 
 
 class LessonWithParticipantsSerializer(serializers.ModelSerializer):
@@ -92,7 +92,7 @@ class LessonsByTeacherWithMessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ['pk', 'student', 'day', 'timestamp']
+        fields = "__all__"
 
 
 class TeacherWithLessonsFullDepthSerializer(serializers.ModelSerializer):
