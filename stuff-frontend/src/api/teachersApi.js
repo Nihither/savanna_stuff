@@ -74,3 +74,27 @@ export async function getLessonsByTeacher(id){
   })
   return handleDataResponse(response)
 }
+
+export async function getCancelledLessonsByTeacher(id) {
+  let url = `${STUFF_ROUTES.TEACHERS}/${id}/cancelled-lessons`
+  let response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Token ${getToken()}`,
+      'Content-Type': 'application/json',
+    },
+  })
+  return handleDataResponse(response)
+}
+
+export async function getExtraLessonsByTeacher(id) {
+  let url = `${STUFF_ROUTES.TEACHERS}/${id}/extra-lessons`
+  let response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Token ${getToken()}`,
+      'Content-Type': 'application/json',
+    },
+  })
+  return handleDataResponse(response)
+}
